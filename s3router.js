@@ -46,6 +46,21 @@ function S3Router(options) {
     };
 
     /**
+     * Redirects image requests with a temporary signed URL, giving access
+     * to GET an upload.
+     */
+    function tempThumbsRedirect(req, res) {
+        var params = {
+            Bucket: S3_BUCKET,
+            Key: 'images/thumbs/' + req.params[0]
+        };
+        var s3 = new aws.S3(s3Options);
+        s3.getSignedUrl('getObject', params, function(err, url) {
+            res.redirect(url);
+        });
+    };
+
+    /**
      * Image specific route.
      */
     router.get(/\/img\/(.*)/, function(req, res) {
@@ -57,6 +72,13 @@ function S3Router(options) {
      */
     router.get(/\/uploads\/(.*)/, function(req, res) {
         return tempRedirect(req, res);
+    });
+    
+    /**
+     * Other file type(s) route.
+     */
+    router.get(/\/thumbs\/(.*)/, function(req, res) {
+        return tempThumbsRedirect](req, res);
     });
 
     /**
