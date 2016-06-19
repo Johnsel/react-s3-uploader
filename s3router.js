@@ -116,6 +116,11 @@ function S3Router(options) {
             res.json({
                 signedUrl: data,
                 publicUrl: '/s3/uploads/' + filename,
+                thumbs: {
+                    small: '/s3/thumbs/small/' + filename,
+                    medium:'/s3/thumbs/medium/' + filename,
+                    large: '/s3/thumbs/large/' + filename
+                },
                 filename: filename
             });
         });
