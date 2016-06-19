@@ -73,12 +73,12 @@ function S3Router(options) {
     router.get(/\/uploads\/(.*)/, function(req, res) {
         return tempRedirect(req, res);
     });
-    
+
     /**
      * Other file type(s) route.
      */
     router.get(/\/thumbs\/(.*)/, function(req, res) {
-        return tempThumbsRedirect](req, res);
+        return tempThumbsRedirect(req, res);
     });
 
     /**
